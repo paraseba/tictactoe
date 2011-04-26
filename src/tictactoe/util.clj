@@ -44,6 +44,13 @@
         o (map second (filter #(= 'o (first %)) marks))]
     `(make-board (vector ~@x) (vector ~@o))))
 
+(defmacro mark# [board sym]
+  (let [sym (get {'n [0 1] 's [2 1] 'e [1 2]
+                  'w [1 0] 'c [1 1] 'o [1 1]
+                  'ne [0 2] 'nw [0 0] 'se [2 2] 'sw [2 0]}
+                 sym)]
+    `(mark ~board ~sym)))
+
 (def initial-board
   (board - - -
          - - -
