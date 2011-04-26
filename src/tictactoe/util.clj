@@ -1,34 +1,19 @@
 (ns tictactoe.util
   (:use tictactoe.core))
 
-(defn cell [board [i j]]
+(defn cell-char [board cell]
   (cond
-    (contains? (:- board) [i j]) "   "
-    (contains? (:x board) [i j]) " x "
-    (contains? (:o board) [i j]) " o "))
-
-(def all-cells
-  (apply sorted-set
-         (for [i (range 3) j (range 3)]
-           [i j])))
+    (contains? (:x board) cell) " x "
+    (contains? (:o board) cell) " o "
+    :else "   "))
 
 (defn print-board [board]
-  (doseq [row (interpose (apply str (repeat 11 "-"))
-                         (map #(apply str (interpose "|" %)) (partition 3 (map #(cell board %) all-cells))))]
-    (println row)))
-
-(defmacro board [& cells]
-  (let [marks (map vector cells all-cells)
-        x (map second (filter #(= 'x (first %)) marks))
-        o (map second (filter #(= 'o (first %)) marks))
-        - (map second (filter #(= '- (first %)) marks))
-        t (if (< (count o) (count x)) :o :x)]
-    `{:x #{~@x} :o #{~@o} :- #{~@-} :turn ~t}))
-
-(def initial-board
-  (board - - -
-         - - -
-         - - -))
+  (let [cells (map #(cell-char board %) all-cells)
+        rows (partition 3 cells)
+        str-rows (map #(apply str (interpose "|" %)) rows)
+        row-sep "-----------"]
+  (doseq [row (interpose row-sep str-rows)]
+    (println row))))
 
 (defn play [position]
   (doto (best-play position)
@@ -40,7 +25,7 @@
   (mark position (read)))
 
 (defn ended? [position]
-  (empty? (:- position)))
+  (empty? (empty-cells position)))
 
 (defn driver [position]
   (let [my-play (play position)]
@@ -52,6 +37,17 @@
                 (winner your-play) (println "Usted gana")
                 (ended? your-play) (println "Empate")
                 :else (driver your-play))))))
+
+(defmacro board [& cells]
+  (let [marks (map vector cells all-cells)
+        x (map second (filter #(= 'x (first %)) marks))
+        o (map second (filter #(= 'o (first %)) marks))]
+    `(make-board (vector ~@x) (vector ~@o))))
+
+(def initial-board
+  (board - - -
+         - - -
+         - - -))
 
 (defn -main []
   (driver initial-board))
