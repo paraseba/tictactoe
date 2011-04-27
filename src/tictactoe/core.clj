@@ -22,10 +22,12 @@
 
 (defn mark [board cell]
   (assert (contains? (empty-cells board) cell))
-  (assoc board
-         (turn board)
-         (conj ((turn board) board) cell)))
+  (let [t (turn board)]
+    (assoc board
+           t
+           (conj (t board) cell))))
 
+; todo memoize? parece que baja de 14 a 11
 (defn won? [cells]
   (or
     (some #(= (count %) 3) (vals (group-by first cells)))
