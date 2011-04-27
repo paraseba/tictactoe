@@ -33,7 +33,7 @@
                 o - -)
          (-> initial-board
            (mark# n)
-           (mark# o)
+           (mark# c)
            (mark# e)
            (mark# sw)))))
 

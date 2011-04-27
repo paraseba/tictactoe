@@ -1,4 +1,5 @@
 (ns tictactoe.util
+  (:gen-class)
   (:use tictactoe.core))
 
 (defn cell-char [board cell]
@@ -19,10 +20,15 @@
   (doto (best-play position)
     print-board))
 
+(def symbol->cell
+  {'n 1 's 7 'e 5
+   'w 3 'c 4 'o 4
+   'ne 2 'nw 0 'se 8 'sw 6})
+
 (defn ask-player [position]
   (prn)
   (println "Su jugada: ")
-  (mark position (read)))
+  (mark position (symbol->cell (read))))
 
 (defn ended? [position]
   (empty? (empty-cells position)))
@@ -45,17 +51,17 @@
     `(make-board (vector ~@x) (vector ~@o))))
 
 (defmacro mark# [board sym]
-  (let [sym (get {'n [0 1] 's [2 1] 'e [1 2]
-                  'w [1 0] 'c [1 1] 'o [1 1]
-                  'ne [0 2] 'nw [0 0] 'se [2 2] 'sw [2 0]}
-                 sym)]
-    `(mark ~board ~sym)))
+  `(mark ~board ~(symbol->cell sym)))
 
 (def initial-board
   (board - - -
          - - -
          - - -))
 
+(defn count-tree [t]
+  (apply + 1 (map count-tree (:children t))))
+
 (defn -main []
   (driver initial-board))
+  ;(time (count-tree (game-tree initial-board))))
 

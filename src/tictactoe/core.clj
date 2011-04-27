@@ -12,10 +12,7 @@
       :o
       :x)))
 
-(def all-cells
-  (apply sorted-set
-         (for [i (range 3) j (range 3)]
-           [i j])))
+(def all-cells (apply sorted-set (range 9)))
 
 (defn empty-cells [board]
   (clojure.set/difference all-cells (:x board) (:o board)))
@@ -27,17 +24,20 @@
            t
            (conj (t board) cell))))
 
+(def win-cells
+  (let [row1 #{0 1 2}
+        row2 #{3 4 5}
+        row3 #{6 7 8}
+        col1 #{0 3 6}
+        col2 #{1 4 7}
+        col3 #{2 5 8}
+        dia1 #{0 4 8}
+        dia2 #{2 4 6}]
+    [row1 row2 row3 col1 col2 col3 dia1 dia2]))
+
 ; todo memoize? parece que baja de 14 a 11
 (defn won? [cells]
-  (or
-    (some #(= (count %) 3) (vals (group-by first cells)))
-    (some #(= (count %) 3) (vals (group-by second cells)))
-    (and (contains? cells [0 0])
-         (contains? cells [1 1])
-         (contains? cells [2 2]))
-    (and (contains? cells [0 2])
-         (contains? cells [1 1])
-         (contains? cells [2 0]))))
+  (some #(every? cells %) win-cells))
 
 (defn winner [position]
   (cond
