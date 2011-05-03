@@ -63,5 +63,4 @@
 
 (defn -main []
   (driver initial-board))
-  ;(time (count-tree (game-tree initial-board))))
 

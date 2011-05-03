@@ -3,15 +3,6 @@
         [tictactoe.util])
   (:use [clojure.test]))
 
-(deftest turn-test
-  (is (= :x (turn initial-board)))
-  (is (= :x (turn (board - x -
-                         - o -
-                         - - -))))
-  (is (= :o (turn (board - x -
-                         - - -
-                         - - -)))))
-
 (deftest mark-test
   (is (= initial-board (board - - -
                               - - -
