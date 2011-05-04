@@ -1,6 +1,5 @@
 (ns tictactoe.test.core
-  (:use [tictactoe.core]
-        [tictactoe.util])
+  (:use tictactoe.core tictactoe.ai)
   (:use [clojure.test]))
 
 (deftest mark-test
@@ -50,30 +49,30 @@
                            o x o)))))
 
 (deftest play-test
-  (is (= (best-play (board - x x
-                           - o -
-                           - - o))
+  (is (= (best-tictactoe-move (board - x x
+                                     - o -
+                                     - - o))
          (board x x x
                 - o -
                 - - o)))
 
-  (is (= (best-play (board - - o
-                           - x o
-                           x - -))
+  (is (= (best-tictactoe-move (board - - o
+                                     - x o
+                                     x - -))
          (board - - o
                 - x o
                 x - x)))
 
-  (is (= (best-play (board - - -
-                           - x o
-                           - - -))
+  (is (= (best-tictactoe-move (board - - -
+                                     - x o
+                                     - - -))
          (board - - -
                 - x o
                 - - x)))
 
-  (is (= (best-play (board - - o
-                           - x o
-                           x - -))
+  (is (= (best-tictactoe-move (board - - o
+                                     - x o
+                                     x - -))
          (board - - o
                 - x o
                 x - x))))
