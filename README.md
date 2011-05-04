@@ -18,14 +18,15 @@ abstraction is simple and isolated from the details of finding the best move.
 * It would be easy to implement alpha-beta pruning optimization
 * It would be easy to sort moves evaluation
 * It would be very easy to improve the static evaluation function
-* Functional tests are beautiful thanks to Clojure macros:
 
-    (is (= (best-tictactoe-move (board - x x
-                                       - o -
-                                       - - o))
-           (board x x x
-                  - o -
-                  - - o)))
+You can also take a look at tests, they are beautiful thanks to Clojure macros:
+
+      (is (= (best-tictactoe-move (board - x x
+                                         - o -
+                                         - - o))
+             (board x x x
+                    - o -
+                    - - o)))
 
 ## I'm not a genius
 
