@@ -37,6 +37,12 @@ are someone else's. You can read about it in a fantastic paper:
 If you never read it before, you should go read it right now.
 Probably you should go read it even if you have already read it.
 
+## But I'm not an idiot either
+
+If you find ways to improve this code, go ahead and do it, in fact, show me what
+you did. But remember, it's just a showcase for people without any Clojure knowledge.
+This is not professional code.
+
 ## License
 
 Copyright (C) 2011 Sebastián Galkin
