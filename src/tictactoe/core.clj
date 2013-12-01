@@ -1,5 +1,6 @@
 (ns tictactoe.core
-  (:require [tictactoe.ai :as ai]))
+  (:require [tictactoe.ai :as ai]
+            [clojure.set]))
 
 ; -----------------
 ; Board abstraction
