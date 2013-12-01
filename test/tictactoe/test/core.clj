@@ -1,31 +1,6 @@
 (ns tictactoe.test.core
-  (:use tictactoe.core tictactoe.ai)
+  (:use tictactoe.core tictactoe.ai tictactoe.board)
   (:use [clojure.test]))
-
-(deftest mark-test
-  (is (= initial-board (board - - -
-                              - - -
-                              - - -)))
-  (is (= (board - x -
-                - - -
-                - - -)
-         (mark# initial-board n)))
-
-  (is (= (board - x -
-                - o -
-                - - -)
-         (-> initial-board
-           (mark# n)
-           (mark# c))))
-
-  (is (= (board - x -
-                - o x
-                o - -)
-         (-> initial-board
-           (mark# n)
-           (mark# c)
-           (mark# e)
-           (mark# sw)))))
 
 (deftest winner-test
   (is (nil? (winner (board - - -
