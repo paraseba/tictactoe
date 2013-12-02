@@ -1,5 +1,7 @@
 # tictactoe
 
+[![Build Status](https://travis-ci.org/paraseba/tictactoe.png)](https://travis-ci.org/paraseba/tictactoe)
+
 This is a basic tic-tac-toe player program.
 
 It was created for a Clojure presentation, where the public knew nothing about
